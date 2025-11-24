@@ -4,7 +4,7 @@
     import Navitems from "@/components/Navitems";
     import UserDropdown from "@/components/UserDropdown";
 
-    const Header = ({ children }: { children: React.ReactNode }) => {
+    const Header = ({ user }: { user: User }) => {
         return (
             <header className={"sticky top-0 header"}>
                 <div className={"container header-wrapper"}>
@@ -14,7 +14,7 @@
                     <nav className={"hidden sm:block"}>
                         <Navitems/>
                     </nav>
-                    <UserDropdown/>
+                    <UserDropdown user={user} />
                 </div>
             </header>
         );
