@@ -13,15 +13,16 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOut } from "lucide-react";
 import Navitems from "@/components/Navitems";
+import {signOut} from "@/lib/action/auth-actions";
 
-const UserDropdown = () => {
+
+const UserDropdown = ({ user }: {user: User}) => {
     const router = useRouter();
 
-    const handleSignout = async () => {
+    const handleSignOut = async () => {
+        await signOut();
         router.push("/sign-in");
     };
-
-    const user = { name: "John", email: "contact@jstockmarcket.com" };
 
     return (
         <DropdownMenu>
@@ -65,7 +66,7 @@ const UserDropdown = () => {
 
                 {/* Déconnexion — visible tout le temps */}
                 <DropdownMenuItem
-                    onClick={handleSignout}
+                    onClick={handleSignOut}
                     className="text-gray-100 text-md font-medium focus:bg-transparent focus:text-yellow-500 transition-colors cursor-pointer flex items-center"
                 >
                     <LogOut className="h-4 w-4 mr-2" />
