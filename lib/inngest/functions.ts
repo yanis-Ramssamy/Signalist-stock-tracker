@@ -73,7 +73,7 @@ export const sendDailyNewsSummary = inngest.createFunction(
                     }
                     perUser.push({ user, articles });
                 } catch (e) {
-                    console.error('daily-news: error preparing user news', user.email, e);
+                    console.error('daily-news: error preparing user news for userId', user.id, e);
                     perUser.push({ user, articles: [] });
                 }
             }
@@ -83,11 +83,13 @@ export const sendDailyNewsSummary = inngest.createFunction(
         // Step #3: (placeholder) Summarize news via AI
         const userNewsSummaries: { user: UserForNewsEmail; newsContent: string | null }[] = [];
 
+        let idxCounter = 0;
         for (const { user, articles } of results) {
             try {
                 const prompt = NEWS_SUMMARY_EMAIL_PROMPT.replace('{{newsData}}', JSON.stringify(articles, null, 2));
 
-                const response = await step.ai.infer(`summarize-news-${user.email}`, {
+                const stepId = `summarize-news-${user.id || idxCounter}`;
+                const response = await step.ai.infer(stepId, {
                     model: step.ai.models.gemini({ model: 'gemini-2.5-flash-lite' }),
                     body: {
                         contents: [{ role: 'user', parts: [{ text:prompt }]}]
@@ -99,9 +101,10 @@ export const sendDailyNewsSummary = inngest.createFunction(
 
                 userNewsSummaries.push({ user, newsContent });
             } catch (e) {
-                console.error('Failed to summarize news for : ', user.email);
+                console.error('Failed to summarize news for userId: ', user.id);
                 userNewsSummaries.push({ user, newsContent: null });
             }
+            idxCounter++;
         }
 
         // Step #4: (placeholder) Send the emails
