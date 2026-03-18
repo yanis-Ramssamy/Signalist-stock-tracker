@@ -2,7 +2,7 @@
 
 import {connectToDatabase} from "@/Database/mongoose";
 
-export const getAllUsersForNewsEmail = async () => {
+export const getAllUsersForNewsEmail = async (): Promise<UserForNewsEmail[]> => {
     try {
         const mongoose = await connectToDatabase();
         const db = mongoose.connection.db;
@@ -16,7 +16,8 @@ export const getAllUsersForNewsEmail = async () => {
         return users.filter((user) => user.email && user.name).map((user) => ({
             id: user.id || user._id?.toString() || '',
             email: user.email,
-            name: user.name
+            name: user.name,
+            country: (user as any).country || ''
         }))
     } catch (e) {
         console.error('Error fetching users for news email:', e)
