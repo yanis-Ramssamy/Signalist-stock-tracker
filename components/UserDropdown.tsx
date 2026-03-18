@@ -16,7 +16,7 @@ import Navitems from "@/components/Navitems";
 import {signOut} from "@/lib/action/auth-actions";
 
 
-const UserDropdown = ({ user }: {user: User}) => {
+const UserDropdown = ({ user, initialStocks }: { user: User; initialStocks: StockWithWatchlistStatus[] }) => {
     const router = useRouter();
 
     const handleSignOut = async () => {
@@ -76,7 +76,7 @@ const UserDropdown = ({ user }: {user: User}) => {
                 {/* Navigation visible uniquement sur mobile */}
                 <DropdownMenuSeparator className="bg-gray-600 sm:hidden" />
                 <nav className="sm:hidden">
-                    <Navitems />
+                    <Navitems initialStocks={initialStocks} />
                 </nav>
             </DropdownMenuContent>
         </DropdownMenu>
