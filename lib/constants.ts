@@ -1,46 +1,46 @@
 export const NAV_ITEMS = [
-    { href: '/', label: 'Dashboard' },
-    { href: '/search', label: 'Search' },
+    { href: '/', label: 'Tableau de bord' },
+    { href: '/search', label: 'Recherche' },
     // { href: '/watchlist', label: 'Watchlist' },
 ];
 
 // Sign-up form select options
 export const INVESTMENT_GOALS = [
-    { value: 'Growth', label: 'Growth' },
-    { value: 'Income', label: 'Income' },
-    { value: 'Balanced', label: 'Balanced' },
-    { value: 'Conservative', label: 'Conservative' },
+    { value: 'Growth', label: 'Croissance' },
+    { value: 'Income', label: 'Revenu' },
+    { value: 'Balanced', label: 'Équilibré' },
+    { value: 'Conservative', label: 'Conservateur' },
 ];
 
 export const RISK_TOLERANCE_OPTIONS = [
-    { value: 'Low', label: 'Low' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'High', label: 'High' },
+    { value: 'Low', label: 'Faible' },
+    { value: 'Medium', label: 'Moyenne' },
+    { value: 'High', label: 'Élevée' },
 ];
 
 export const PREFERRED_INDUSTRIES = [
-    { value: 'Technology', label: 'Technology' },
-    { value: 'Healthcare', label: 'Healthcare' },
+    { value: 'Technology', label: 'Technologie' },
+    { value: 'Healthcare', label: 'Santé' },
     { value: 'Finance', label: 'Finance' },
-    { value: 'Energy', label: 'Energy' },
-    { value: 'Consumer Goods', label: 'Consumer Goods' },
+    { value: 'Energy', label: 'Énergie' },
+    { value: 'Consumer Goods', label: 'Biens de consommation' },
 ];
 
 export const ALERT_TYPE_OPTIONS = [
-    { value: 'upper', label: 'Upper' },
-    { value: 'lower', label: 'Lower' },
+    { value: 'upper', label: 'Supérieur' },
+    { value: 'lower', label: 'Inférieur' },
 ];
 
 export const CONDITION_OPTIONS = [
-    { value: 'greater', label: 'Greater than (>)' },
-    { value: 'less', label: 'Less than (<)' },
+    { value: 'greater', label: 'Supérieur à (>)' },
+    { value: 'less', label: 'Inférieur à (<)' },
 ];
 
 // TradingView Charts
 export const MARKET_OVERVIEW_WIDGET_CONFIG = {
     colorTheme: 'dark', // dark mode
     dateRange: '12M', // last 12 months
-    locale: 'en', // language
+    locale: 'fr', // language
     largeChartUrl: '', // link to a large chart if needed
     isTransparent: true, // makes background transparent
     showFloatingTooltip: true, // show tooltip on hover
@@ -55,7 +55,7 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
     symbolActiveColor: 'rgba(15, 237, 190, 0.05)', // highlight color for active symbol
     tabs: [
         {
-            title: 'Financial',
+            title: 'Finance',
             symbols: [
                 { s: 'NYSE:JPM', d: 'JPMorgan Chase' },
                 { s: 'NYSE:WFC', d: 'Wells Fargo Co New' },
@@ -66,7 +66,7 @@ export const MARKET_OVERVIEW_WIDGET_CONFIG = {
             ],
         },
         {
-            title: 'Technology',
+            title: 'Technologie',
             symbols: [
                 { s: 'NASDAQ:AAPL', d: 'Apple' },
                 { s: 'NASDAQ:GOOGL', d: 'Alphabet' },
@@ -101,7 +101,7 @@ export const HEATMAP_WIDGET_CONFIG = {
     blockColor: 'change',
     grouping: 'sector',
     isTransparent: true,
-    locale: 'en',
+    locale: 'fr',
     symbolUrl: '',
     colorTheme: 'dark',
     exchanges: [],
@@ -119,24 +119,24 @@ export const TOP_STORIES_WIDGET_CONFIG = {
     feedMode: 'market',
     colorTheme: 'dark',
     isTransparent: true,
-    locale: 'en',
+    locale: 'fr',
     market: 'stock',
     width: '100%',
     height: '600',
 };
 
 export const MARKET_DATA_WIDGET_CONFIG = {
-    title: 'Stocks',
+    title: 'Actions',
     width: '100%',
     height: 600,
-    locale: 'en',
+    locale: 'fr',
     showSymbolLogo: true,
     colorTheme: 'dark',
     isTransparent: false,
     backgroundColor: '#0F0F0F',
     symbolsGroups: [
         {
-            name: 'Financial',
+            name: 'Finance',
             symbols: [
                 { name: 'NYSE:JPM', displayName: 'JPMorgan Chase' },
                 { name: 'NYSE:WFC', displayName: 'Wells Fargo Co New' },
@@ -147,7 +147,7 @@ export const MARKET_DATA_WIDGET_CONFIG = {
             ],
         },
         {
-            name: 'Technology',
+            name: 'Technologie',
             symbols: [
                 { name: 'NASDAQ:AAPL', displayName: 'Apple' },
                 { name: 'NASDAQ:GOOGL', displayName: 'Alphabet' },
@@ -174,7 +174,7 @@ export const SYMBOL_INFO_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
     colorTheme: 'dark',
     isTransparent: true,
-    locale: 'en',
+    locale: 'fr',
     width: '100%',
     height: 170,
 });
@@ -189,7 +189,7 @@ export const CANDLE_CHART_WIDGET_CONFIG = (symbol: string) => ({
     hide_volume: false,
     hotlist: false,
     interval: 'D',
-    locale: 'en',
+    locale: 'fr',
     save_image: false,
     style: 1,
     symbol: symbol.toUpperCase(),
@@ -215,7 +215,7 @@ export const BASELINE_WIDGET_CONFIG = (symbol: string) => ({
     hide_volume: false,
     hotlist: false,
     interval: 'D',
-    locale: 'en',
+    locale: 'fr',
     save_image: false,
     style: 10,
     symbol: symbol.toUpperCase(),
@@ -235,7 +235,7 @@ export const TECHNICAL_ANALYSIS_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
     colorTheme: 'dark',
     isTransparent: 'true',
-    locale: 'en',
+    locale: 'fr',
     width: '100%',
     height: 400,
     interval: '1h',
@@ -246,7 +246,7 @@ export const COMPANY_PROFILE_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
     colorTheme: 'dark',
     isTransparent: 'true',
-    locale: 'en',
+    locale: 'fr',
     width: '100%',
     height: 440,
 });
@@ -255,7 +255,7 @@ export const COMPANY_FINANCIALS_WIDGET_CONFIG = (symbol: string) => ({
     symbol: symbol.toUpperCase(),
     colorTheme: 'dark',
     isTransparent: 'true',
-    locale: 'en',
+    locale: 'fr',
     width: '100%',
     height: 464,
     displayMode: 'regular',

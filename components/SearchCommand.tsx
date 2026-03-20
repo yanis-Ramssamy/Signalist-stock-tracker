@@ -17,7 +17,7 @@ import { TrendingUp } from "lucide-react";
 import {searchStocks} from "@/lib/action/finnhub.actions";
 import {useDebounce} from "@/components/hooks/useDebounce";
 
-export default function SearchCommand({ renderAs = 'button', label = 'Add stock', initialStocks }: SearchCommandProps) {
+export default function SearchCommand({ renderAs = 'button', label = 'Ajouter une action', initialStocks }: SearchCommandProps) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(false);
@@ -81,7 +81,7 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
               <CommandInput
                   value={searchTerm}
                   onValueChange={setSearchTerm}
-                  placeholder="Search stocks..."
+                  placeholder="Rechercher des actions..."
                   className="search-input"
               />
 
@@ -89,15 +89,15 @@ export default function SearchCommand({ renderAs = 'button', label = 'Add stock'
           </div>
           <CommandList className={"search-list"}>
               {loading ? (
-                  <CommandEmpty className="search-list-empty">Loading stocks...</CommandEmpty>
+                  <CommandEmpty className="search-list-empty">Chargement des actions...</CommandEmpty>
               ) : displayStocks?.length === 0 ? (
                   <div className="search-list-indicator">
-                      {isSearchMode ? 'No results found' : 'No stocks available'}
+                      {isSearchMode ? 'Aucun résultat' : 'Aucune action disponible'}
                   </div>
               ) : (
                   <ul>
                       <div className="search-count">
-                          {isSearchMode ? 'Search results' : 'Popular stocks'}
+                          {isSearchMode ? 'Résultats de recherche' : 'Actions populaires'}
                           {` `}({displayStocks?.length || 0})
                       </div>
                       {displayStocks?.map((stock, i) => (

@@ -116,7 +116,7 @@ export const formatPrice = (price: number) => {
     }).format(price);
 };
 
-export const formatDateToday = new Date().toLocaleDateString('en-US', {
+export const formatDateToday = new Date().toLocaleDateString('fr-FR', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
@@ -130,7 +130,7 @@ export const getAlertText = (alert: Alert) => {
     return `Price ${condition} ${formatPrice(alert.threshold)}`;
 };
 
-export const getFormattedTodayDate = () => new Date().toLocaleDateString('en-US', {
+export const getFormattedTodayDate = () => new Date().toLocaleDateString('fr-FR', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

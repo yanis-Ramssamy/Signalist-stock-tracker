@@ -17,7 +17,7 @@ const WatchlistButton = ({
 
     const label = useMemo(() => {
         if (type === "icon") return added ? "" : "";
-        return added ? "Remove from Watchlist" : "Add to Watchlist";
+        return added ? "Retirer de la liste de suivi" : "Ajouter à la liste de suivi";
     }, [added, type]);
 
     const handleClick = () => {
@@ -29,8 +29,8 @@ const WatchlistButton = ({
     if (type === "icon") {
         return (
             <button
-                title={added ? `Remove ${symbol} from watchlist` : `Add ${symbol} to watchlist`}
-                aria-label={added ? `Remove ${symbol} from watchlist` : `Add ${symbol} to watchlist`}
+                title={added ? `Retirer ${symbol} de la liste de suivi` : `Ajouter ${symbol} à la liste de suivi`}
+                aria-label={added ? `Retirer ${symbol} de la liste de suivi` : `Ajouter ${symbol} à la liste de suivi`}
                 className={`watchlist-icon-btn ${added ? "watchlist-icon-added" : ""}`}
                 onClick={handleClick}
             >
