@@ -1,11 +1,11 @@
 export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="x-apple-disable-message-reformatting">
-    <title>Welcome to Signalist</title>
+    <title>Bienvenue sur Signalist</title>
     <!--[if mso]>
     <noscript>
         <xml>
@@ -166,13 +166,13 @@ export const WELCOME_EMAIL_TEMPLATE = `<!DOCTYPE html>
 </html>`;
 
 export const NEWS_SUMMARY_EMAIL_TEMPLATE = `<!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="x-apple-disable-message-reformatting">
-    <title>Market News Summary Today</title>
+    <title>Résumé des actualités du marché</title>
     <!--[if mso]>
     <noscript>
         <xml>

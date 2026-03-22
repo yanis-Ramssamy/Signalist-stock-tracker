@@ -24,7 +24,7 @@ const Navitems = ({ initialStocks }: NavitemsProps) => {
                     <li key="search-trigger">
                         <SearchCommand
                             renderAs="text"
-                            label="Search"
+                            label="Rechercher"
                             initialStocks={initialStocks}
                         />
                     </li>

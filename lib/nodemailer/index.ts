@@ -17,8 +17,8 @@ export const sendWelcomeEmail = async ({ email, name, intro }: WelcomeEmailData)
     const mailOptions = {
         from: `"Signalist" <signalist@jsmastery.pro>`,
         to: email,
-        subject: `Welcome to Signalist - your stock market toolkit is ready!`,
-        text: 'Thanks for joining Signalist',
+        subject: `Bienvenue sur Signalist — vos outils boursiers sont prêts !`,
+        text: 'Merci de rejoindre Signalist',
         html: htmlTemplate,
     }
 
@@ -34,8 +34,8 @@ export const sendNewsSummaryEmail = async (
     const mailOptions = {
         from: `"Signalist News" <signalist@jsmastery.pro>`,
         to: email,
-        subject: `📈 Market News Summary Today - ${date}`,
-        text: `Today's market news summary from Signalist`,
+        subject: `📈 Résumé des actualités du marché — ${date}`,
+        text: `Résumé des actualités du marché d’aujourd’hui par Signalist`,
         html: htmlTemplate,
     };
 

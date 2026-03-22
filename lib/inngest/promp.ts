@@ -1,4 +1,6 @@
-export const PERSONALIZED_WELCOME_EMAIL_PROMPT = `Generate highly personalized HTML content that will be inserted into an email template at the {{intro}} placeholder.
+export const PERSONALIZED_WELCOME_EMAIL_PROMPT = `Réponds en français (fr-FR) avec un style clair, professionnel et concis.
+
+Generate highly personalized HTML content that will be inserted into an email template at the {{intro}} placeholder.
 
 User profile data:
 {{userProfile}}
@@ -47,7 +49,9 @@ Example personalized outputs (showing obvious customization with TWO sentences):
 
 <p class="mobile-text" style="margin: 0 0 30px 0; font-size: 16px; line-height: 1.6; color: #CCDADC;">You're all set! Since you're new to investing, we've designed simple tools to help you build confidence while learning the <strong>healthcare sector</strong> you're interested in. Our beginner-friendly alerts will guide you without the confusing jargon.</p>`
 
-export const NEWS_SUMMARY_EMAIL_PROMPT = `Generate HTML content for a market news summary email that will be inserted into the NEWS_SUMMARY_EMAIL_TEMPLATE at the {{newsContent}} placeholder.
+export const NEWS_SUMMARY_EMAIL_PROMPT = `Réponds en français (fr-FR) avec un style clair, pédagogique et concis.
+
+Generate HTML content for a market news summary email that will be inserted into the NEWS_SUMMARY_EMAIL_TEMPLATE at the {{newsContent}} placeholder.
 
 News data to summarize:
 {{newsData}}
