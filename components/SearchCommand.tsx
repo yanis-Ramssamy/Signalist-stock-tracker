@@ -11,11 +11,12 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import {Button} from "@/components/ui/button";
-import {Loader2, Star} from "lucide-react";
+import {Loader2} from "lucide-react";
 import Link from "next/link";
 import { TrendingUp } from "lucide-react";
 import {searchStocks} from "@/lib/action/finnhub.actions";
 import {useDebounce} from "@/components/hooks/useDebounce";
+import WatchlistStar from "@/components/WatchlistStar";
 
 export default function SearchCommand({ renderAs = 'button', label = 'Ajouter une action', initialStocks }: SearchCommandProps) {
   const [open, setOpen] = useState(false);
@@ -100,25 +101,34 @@ export default function SearchCommand({ renderAs = 'button', label = 'Ajouter un
                           {isSearchMode ? 'Résultats de recherche' : 'Actions populaires'}
                           {` `}({displayStocks?.length || 0})
                       </div>
-                      {displayStocks?.map((stock, i) => (
-                          <li key={stock.symbol} className="search-item">
-                              <Link
-                                  href={`/stocks/${stock.symbol}`}
-                                  onClick={handleSelectStock}
-                                  className="search-item-link"
-                              >
-                                  <TrendingUp className="h-4 w-4 text-gray-500" />
-                                  <div  className="flex-1">
-                                      <div className="search-item-name">
-                                          {stock.name}
-                                      </div>
-                                      <div className="text-sm text-gray-500">
-                                          {stock.symbol} | {stock.exchange } | {stock.type}
-                                      </div>
-                                  </div>
-                                  <Star />
-                              </Link>
-                          </li>
+                      {displayStocks?.map((stock) => (
+                        <li key={stock.symbol} className="search-item flex items-center gap-3">
+                          <Link
+                            href={`/stocks/${stock.symbol}`}
+                            onClick={handleSelectStock}
+                            className="search-item-link flex items-center gap-3 flex-1"
+                          >
+                            <TrendingUp className="h-4 w-4 text-gray-500" />
+                            <div className="flex-1">
+                              <div className="search-item-name">{stock.name}</div>
+                              <div className="text-sm text-gray-500">
+                                {stock.symbol} | {stock.exchange} | {stock.type}
+                              </div>
+                            </div>
+                          </Link>
+                          <WatchlistStar
+                            symbol={stock.symbol}
+                            company={stock.name}
+                            initialInWatchlist={Boolean(stock.isInWatchlist)}
+                            onToggle={(inList) => {
+                              setStocks((prev) =>
+                                (prev || []).map((s) =>
+                                  s.symbol === stock.symbol ? { ...s, isInWatchlist: inList } : s
+                                )
+                              );
+                            }}
+                          />
+                        </li>
                       ))}
                   </ul>
               )

@@ -177,5 +177,106 @@ export const searchStocks = cache(async (query?: string): Promise<StockWithWatch
     } catch (err) {
         console.error('Error in stock search:', err);
         return [];
-    }
+  }
 });
+
+// Snapshot of watchlist symbols with basic market data
+export interface WatchlistSnapshotItem {
+    symbol: string;
+    company: string;
+    price: number | null; // last price
+    changePct: number | null; // percentage change vs prev close (e.g., 1.23 for +1.23%)
+    marketCap: number | null; // in USD
+    pe: number | null; // trailing PE if available
+}
+
+export async function getWatchlistSnapshot(symbols: string[], fallbackCompanies?: Record<string, string>): Promise<WatchlistSnapshotItem[]> {
+    try {
+        const token = process.env.FINNHUB_API_KEY ?? NEXT_PUBLIC_FINNHUB_API_KEY;
+        const clean = (symbols || [])
+            .map((s) => (s || '').trim().toUpperCase())
+            .filter((s) => !!s);
+        if (clean.length === 0) return [];
+
+        const maxBatch = 20; // safety to avoid rate limits
+        const batches: string[][] = [];
+        for (let i = 0; i < clean.length; i += maxBatch) batches.push(clean.slice(i, i + maxBatch));
+
+        const out: WatchlistSnapshotItem[] = [];
+
+        for (const batch of batches) {
+            const perSymbol = await Promise.all(
+                batch.map(async (sym) => {
+                    let company = fallbackCompanies?.[sym] ?? sym;
+                    let price: number | null = null;
+                    let changePct: number | null = null;
+                    let marketCap: number | null = null;
+                    let pe: number | null = null;
+
+                    if (!token) {
+                        // No token: return placeholders with known company label
+                        return { symbol: sym, company, price, changePct, marketCap, pe } as WatchlistSnapshotItem;
+                    }
+
+                    try {
+                        const quoteUrl = `${FINNHUB_BASE_URL}/quote?symbol=${encodeURIComponent(sym)}&token=${token}`;
+                        const profileUrl = `${FINNHUB_BASE_URL}/stock/profile2?symbol=${encodeURIComponent(sym)}&token=${token}`;
+
+                        const [quote, profile] = await Promise.all([
+                            fetchJSON<any>(quoteUrl, 60).catch(() => null),
+                            fetchJSON<any>(profileUrl, 3600).catch(() => null),
+                        ]);
+
+                        if (profile) {
+                            const name = (profile.name as string | undefined)?.trim();
+                            if (name) company = name;
+                            const mc = Number(profile.marketCapitalization);
+                            // Finnhub profile2.marketCapitalization is in BILLIONS of USD.
+                            // Convert to absolute USD by multiplying by 1e9 for correct T/B/M formatting downstream.
+                            if (!Number.isNaN(mc) && mc > 0) marketCap = mc * 1_000_000_000;
+                            const peVal = Number((profile as any).peBasicExclExtraTTM ?? (profile as any).peTTM);
+                            if (!Number.isNaN(peVal) && peVal > 0) pe = peVal;
+                        }
+
+                        if (quote) {
+                            const c = Number(quote.c);
+                            const pc = Number(quote.pc);
+                            if (!Number.isNaN(c) && c > 0) price = c;
+                            if (!Number.isNaN(c) && !Number.isNaN(pc) && pc > 0) {
+                                changePct = ((c - pc) / pc) * 100;
+                            }
+                        }
+
+                        // If PE is still null, try Finnhub metrics endpoint for valuation ratios
+                        if (pe == null && token) {
+                            try {
+                                const metricsUrl = `${FINNHUB_BASE_URL}/stock/metric?symbol=${encodeURIComponent(sym)}&metric=valuation&token=${token}`;
+                                const metrics = await fetchJSON<any>(metricsUrl, 1800).catch(() => null);
+                                const m = metrics?.metric as Record<string, unknown> | undefined;
+                                const peCandidate = Number(
+                                    (m?.peBasicExclExtraTTM as any) ??
+                                    (m?.peTTM as any) ??
+                                    (m?.priceToEarningsTTM as any)
+                                );
+                                if (!Number.isNaN(peCandidate) && peCandidate > 0) pe = peCandidate;
+                            } catch (e) {
+                                // non-fatal; leave PE as null
+                            }
+                        }
+                    } catch (e) {
+                        console.error('getWatchlistSnapshot error for', sym, e);
+                    }
+
+                    return { symbol: sym, company, price, changePct, marketCap, pe } as WatchlistSnapshotItem;
+                })
+            );
+
+            out.push(...perSymbol);
+        }
+
+        return out;
+    } catch (err) {
+        console.error('getWatchlistSnapshot fatal error:', err);
+        return [];
+    }
+}
